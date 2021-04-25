@@ -8,11 +8,10 @@ WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src
-COPY ["Web.Ui/Web.Ui.csproj", "Web.Ui/"]
-RUN dotnet restore "Web.Ui/Web.Ui.csproj"
-COPY . .
 WORKDIR "/src/Web.Ui"
+COPY ["Web.Ui.csproj", "."]
+RUN dotnet restore "Web.Ui.csproj"
+COPY . .
 RUN dotnet build "Web.Ui.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -1,0 +1,14 @@
+docker build -f "D:\github\netcore-docker-rabbit\CoreDockerRabbit\Web.Ui\Dockerfile"
+--force-rm -t webui:dev --target base 
+--label "com.microsoft.created-by=visual-studio"
+--label "com.microsoft.visual-studio.project-name=Web.Ui" "D:\github\netcore-docker-rabbit\CoreDockerRabbit" 
+
+docker build -f Dockerfile --force-rm -t webui:dev --target base ..
+
+docker run -dt -v "D:\github\netcore-docker-rabbit\CoreDockerRabbit\Web.Ui:/app"
+-v "D:\github\netcore-docker-rabbit\CoreDockerRabbit:/src/"
+-v "C:\Users\Volodymyr_Ivanov\.nuget\packages\:/root/.nuget/fallbackpackages2"
+-v "C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages"
+-e "ASPNETCORE_ENVIRONMENT=Development" -e "NUGET_PACKAGES=/root/.nuget/fallbackpackages2"
+-e "NUGET_FALLBACK_PACKAGES=/root/.nuget/fallbackpackages;/root/.nuget/fallbackpackages2"
+-P --name Web.Ui --entrypoint tail webui:dev -f /dev/null 
