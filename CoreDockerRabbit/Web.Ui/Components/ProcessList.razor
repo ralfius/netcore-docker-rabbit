@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using Web.Contracts;
+@page "/on-init"
+@inject Web.Ui.Services.ProcessService processService;
+
+<h3>Process List</h3>
+
+@if (processes.Any())
+{
+    <table>
+        <tr>
+            <td>Process Id</td>
+            <td>Status</td>
+        </tr>
+        @foreach (var process in processes)
+        {
+            <tr>
+                <td>@process.ProcessId</td>
+                <td>@process.Status</td>
+            </tr>
+        }
+    </table>
+}
+
+
+@code {
+    IEnumerable<Process> processes = new List<Process>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        processes = await processService.GetProcessesAsync();
+    }
+}
