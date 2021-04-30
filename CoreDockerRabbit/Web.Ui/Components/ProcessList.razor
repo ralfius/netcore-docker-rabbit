@@ -7,18 +7,22 @@
 
 @if (processes.Any())
 {
-    <table>
-        <tr>
-            <td>Process Id</td>
-            <td>Status</td>
-        </tr>
-        @foreach (var process in processes)
-        {
+    <table class="table table-sm table-striped">
+        <thead class="thead-light ">
             <tr>
-                <td>@process.ProcessId</td>
-                <td>@process.Status</td>
+                <th>Process Id</th>
+                <th>Status</th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var process in processes)
+            {
+                <tr>
+                    <td>@process.ProcessId</td>
+                    <td>@process.Status</td>
+                </tr>
+            }
+        </tbody>
     </table>
 }
 

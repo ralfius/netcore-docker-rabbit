@@ -15,7 +15,7 @@ namespace Web.Ui.Services
             using (var httpClient = new HttpClient())
             {
                 // TODO move to configs
-                var response = await httpClient.GetAsync("http://webapi/processes");
+                var response = await httpClient.GetAsync("http://localhost:43002/processes");
                 response.EnsureSuccessStatusCode();
 
                 return JsonConvert.DeserializeObject<IEnumerable<Process>>(await response.Content.ReadAsStringAsync());
