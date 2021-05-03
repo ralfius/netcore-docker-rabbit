@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.Api.Services;
+using Web.DAL;
 
 namespace Web.Api
 {
@@ -31,6 +33,9 @@ namespace Web.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web.Api", Version = "v1" });
             });
+            services.AddDbContext<WebDbContext>();
+            services.AddTransient<IProcessService, ProcessService>();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

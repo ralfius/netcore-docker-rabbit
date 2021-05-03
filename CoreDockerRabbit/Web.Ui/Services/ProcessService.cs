@@ -10,7 +10,7 @@ namespace Web.Ui.Services
 {
     public class ProcessService : IProcessService
     {
-        public async Task<IEnumerable<Process>> GetProcessesAsync()
+        public async Task<IEnumerable<ProcessModel>> GetProcessesAsync()
         {
             using (var httpClient = new HttpClient())
             {
@@ -18,7 +18,7 @@ namespace Web.Ui.Services
                 var response = await httpClient.GetAsync("http://localhost:43002/processes");
                 response.EnsureSuccessStatusCode();
 
-                return JsonConvert.DeserializeObject<IEnumerable<Process>>(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<IEnumerable<ProcessModel>>(await response.Content.ReadAsStringAsync());
             }
         }
     }

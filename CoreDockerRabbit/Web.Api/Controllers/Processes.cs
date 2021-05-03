@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Web.Api.Services;
 using Web.Contracts;
+using Web.DAL;
+using ProcessStatus = Web.Contracts.ProcessStatus;
 
 namespace Web.Api.Controllers
 {
@@ -9,15 +13,16 @@ namespace Web.Api.Controllers
     [ApiController]
     public class Processes : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<Process> Get()
+        private readonly IProcessService _service;
+        public Processes(IProcessService service)
         {
-            return new List<Process>()
-            {
-                new Process { ProcessId = Guid.NewGuid(), Status = ProcessStatus.Queued },
-                new Process { ProcessId = Guid.NewGuid(), Status = ProcessStatus.InProgress },
-                new Process { ProcessId = Guid.NewGuid(), Status = ProcessStatus.Completed }
-            };
+            _service = service;
+        }
+
+        [HttpGet]
+        public Task<IEnumerable<ProcessModel>> Get()
+        {
+            return _service.GetProcessesAsync();
         }
 
         // POST api/<Processes>

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web.Contracts;
 
-namespace Web.Ui.Services
+namespace Web.Api.Services
 {
-    interface IProcessService
+    public interface IProcessService
     {
-        Task<IEnumerable<ProcessModel>> GetProcessesAsync();
+        public Task<IEnumerable<ProcessModel>> GetProcessesAsync();
     }
 }
