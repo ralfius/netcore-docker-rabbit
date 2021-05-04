@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -56,6 +57,17 @@ namespace Web.Api
             {
                 endpoints.MapControllers();
             });
+
+            MigrateDb(app);
+        }
+
+        public void MigrateDb(IApplicationBuilder builder)
+        {
+            using (var scope = builder.ApplicationServices.CreateScope())
+            using (var dbContext = scope.ServiceProvider.GetService<WebDbContext>())
+            {
+                dbContext.Database.Migrate();
+            }
         }
     }
 }

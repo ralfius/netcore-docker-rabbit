@@ -11,16 +11,18 @@
         <thead class="thead-light ">
             <tr>
                 <th>Process Id</th>
+                <th>Created</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var process in processes)
             {
-                <tr>
-                    <td>@process.ProcessId</td>
-                    <td>@process.Status</td>
-                </tr>
+            <tr>
+                <td>@process.ProcessId</td>
+                <td>@process.Created</td>
+                <td>@process.Status</td>
+            </tr>
             }
         </tbody>
     </table>

@@ -21,8 +21,7 @@ namespace Web.Api.Services
 
         public async Task<IEnumerable<ProcessModel>> GetProcessesAsync()
         {
-            var result = await _mapper.ProjectTo<ProcessModel>(_context.Processes).ToListAsync();
-            return result;
+            return await _mapper.ProjectTo<ProcessModel>(_context.Processes).ToListAsync();
         }
     }
 }
