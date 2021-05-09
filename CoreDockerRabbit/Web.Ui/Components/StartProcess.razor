@@ -1,0 +1,19 @@
+﻿@using Web.Contracts;
+@using Microsoft.AspNetCore.Components.Forms
+@inject Web.Ui.Services.IProcessService processService;
+
+<EditForm Model=newProcess OnValidSubmit="HandleSubmit">
+    <button type="submit" class="btn btn-primary">Start New Process</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public EventCallback OnProcessStarted { get; set; }
+    ProcessModel newProcess = new ProcessModel();
+
+    public async Task HandleSubmit()
+    {
+        await processService.StartProcessAsync();
+        await OnProcessStarted.InvokeAsync();
+    }
+}

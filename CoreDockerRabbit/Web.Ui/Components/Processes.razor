@@ -1,0 +1,11 @@
+﻿<ProcessList @ref="processList"></ProcessList>
+<StartProcess OnProcessStarted="ProcessStarted"></StartProcess>
+
+@code {
+    private ProcessList processList;
+
+    public async Task ProcessStarted()
+    {
+        await processList.RefreshProcessListAsync();
+    }
+}

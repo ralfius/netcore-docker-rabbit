@@ -8,10 +8,7 @@
 <div class="text-center">
     <h3>Welcome to .NET Core + Docker + Rabbit MQ application</h3>
     <br />
-
-    @(await Html.RenderComponentAsync<Web.Ui.Components.ProcessList>(RenderMode.ServerPrerendered))
-
-    <button type="button">Start external process</button>
+    @(await Html.RenderComponentAsync<Web.Ui.Components.Processes>(RenderMode.ServerPrerendered))
 </div>
 
 <script src="_framework/blazor.server.js"></script>

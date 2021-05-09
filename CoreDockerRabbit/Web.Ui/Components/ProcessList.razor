@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 @using Web.Contracts;
-@page "/on-init"
-@inject Web.Ui.Services.ProcessService processService;
+@inject Web.Ui.Services.IProcessService processService;
 
 <h3>Process List</h3>
 
@@ -32,8 +31,14 @@
 @code {
     IEnumerable<ProcessModel> processes = new List<ProcessModel>();
 
-    protected override async Task OnInitializedAsync()
+    public async Task RefreshProcessListAsync()
     {
         processes = await processService.GetProcessesAsync();
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshProcessListAsync();
     }
 }
