@@ -9,5 +9,6 @@ namespace Web.Ui.Services
     interface IProcessService
     {
         Task<IEnumerable<ProcessModel>> GetProcessesAsync();
+        Task<ProcessModel> StartProcessAsync();
     }
 }

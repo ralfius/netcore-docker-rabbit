@@ -21,5 +21,17 @@ namespace Web.Ui.Services
                 return JsonConvert.DeserializeObject<IEnumerable<ProcessModel>>(await response.Content.ReadAsStringAsync());
             }
         }
+
+        public async Task<ProcessModel> StartProcessAsync()
+        {
+            using (var httpClient = new HttpClient())
+            {
+                // TODO move to configs
+                var response = await httpClient.PostAsync("http://localhost:43002/processes", new StringContent(string.Empty));
+                response.EnsureSuccessStatusCode();
+
+                return JsonConvert.DeserializeObject<ProcessModel>(await response.Content.ReadAsStringAsync());
+            }
+        }
     }
 }

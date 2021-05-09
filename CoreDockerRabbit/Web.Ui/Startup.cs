@@ -25,7 +25,7 @@ namespace Web.Ui
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddTransient<ProcessService>();
+            services.AddTransient<IProcessService, ProcessService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

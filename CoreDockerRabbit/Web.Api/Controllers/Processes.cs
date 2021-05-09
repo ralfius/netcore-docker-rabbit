@@ -27,20 +27,9 @@ namespace Web.Api.Controllers
 
         // POST api/<Processes>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Task Post()
         {
-        }
-
-        // PUT api/<Processes>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<Processes>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return _service.StartProcessesAsync();
         }
     }
 }
