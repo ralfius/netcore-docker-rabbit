@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Web.Api.Services;
+using Web.Common.Services;
 using Web.DAL;
 
 namespace Web.Api
@@ -36,6 +37,7 @@ namespace Web.Api
             });
             services.AddDbContext<WebDbContext>();
             services.AddTransient<IProcessService, ProcessService>();
+            services.AddSingleton<IMessageBusService, MessageBusService>();
             services.AddAutoMapper(typeof(Startup));
         }
 

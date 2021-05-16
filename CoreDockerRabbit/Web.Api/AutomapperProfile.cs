@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Web.Contracts;
+using Web.Common.Models;
 using Web.DAL.Entities;
 
 namespace Web.Api

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web.Contracts
+namespace Web.Common.Models
 {
     public enum ProcessStatus
     {

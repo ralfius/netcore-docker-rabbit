@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Web.Contracts\Web.Contracts.csproj" />
+    <ProjectReference Include="..\Web.Common\Web.Common.csproj" />
     <ProjectReference Include="..\Web.DAL\Web.DAL.csproj" />
   </ItemGroup>
 

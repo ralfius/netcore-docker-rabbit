@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Web.Api.Services;
-using Web.Contracts;
+using Web.Common.Models;
 using Web.DAL;
-using ProcessStatus = Web.Contracts.ProcessStatus;
+using ProcessStatus = Web.Common.Models.ProcessStatus;
 
 namespace Web.Api.Controllers
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Web.Contracts
+namespace Web.Common.Models
 {
     public class ProcessModel
     {

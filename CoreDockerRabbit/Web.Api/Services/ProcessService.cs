@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Web.Contracts;
+using Web.Common.Models;
+using Web.Common.Services;
 using Web.DAL;
 using Web.DAL.Entities;
 
@@ -13,12 +14,14 @@ namespace Web.Api.Services
     {
         private readonly WebDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IMessageBusService _messageBusService;
 
 
-        public ProcessService(WebDbContext context, IMapper mapper)
+        public ProcessService(WebDbContext context, IMapper mapper, IMessageBusService messageBusService)
         {
             _context = context;
             _mapper = mapper;
+            _messageBusService = messageBusService;
         }
 
         public async Task<IEnumerable<ProcessModel>> GetProcessesAsync()
@@ -28,16 +31,16 @@ namespace Web.Api.Services
 
         public async Task StartProcessesAsync()
         {
-            await _context.Processes.AddAsync(
-                _mapper.Map<ProcessModel, Process>(
-                    new ProcessModel()
-                    {
-                        Created = DateTime.Now,
-                        ProcessId = Guid.NewGuid(),
-                        Status = Contracts.ProcessStatus.Queued
-                    }
-                ));
+            var newProcess = _mapper.Map<ProcessModel, Process>(
+                new ProcessModel()
+                {
+                    Created = DateTime.Now,
+                    ProcessId = Guid.NewGuid(),
+                    Status = Common.Models.ProcessStatus.Queued
+                });
+            await _context.Processes.AddAsync(newProcess);
             await _context.SaveChangesAsync();
+            _messageBusService.Send("processes", newProcess);
         }
     }
 }
