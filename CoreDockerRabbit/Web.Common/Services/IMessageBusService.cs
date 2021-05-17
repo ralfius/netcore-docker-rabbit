@@ -8,6 +8,7 @@ namespace Web.Common.Services
 {
     public interface IMessageBusService: IDisposable
     {
-        void Send<T>(string exchangeName, T message);
+        void Send<T>(string queueName, T message);
+        WebQueueChannel GetChannel<T>(string queueName, Action<T> action);
     }
 }

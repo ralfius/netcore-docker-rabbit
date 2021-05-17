@@ -8,6 +8,7 @@ namespace Web.Common
 {
     public static class Constants
     {
+        public const string ProcessQueueName = "processes";
         public const string RabbitHostnameKey = "RabbitMQ:Connection:Hostname";
         public const string RabbitUserNameKey = "RabbitMQ:Connection:UserName";
         public const string RabbitPasswordKey = "RabbitMQ:Connection:Password";

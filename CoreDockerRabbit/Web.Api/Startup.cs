@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.Api.HostedServices;
 using Web.Api.Services;
 using Web.Common.Services;
 using Web.DAL;
@@ -39,6 +40,7 @@ namespace Web.Api
             services.AddTransient<IProcessService, ProcessService>();
             services.AddSingleton<IMessageBusService, MessageBusService>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddHostedService<ProcessHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

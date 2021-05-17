@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 @using Web.Common.Models;
+@using System.Linq;
 @inject Web.Ui.Services.IProcessService processService;
 
 <h3>Process List</h3>
@@ -33,7 +34,7 @@
 
     public async Task RefreshProcessListAsync()
     {
-        processes = await processService.GetProcessesAsync();
+        processes = (await processService.GetProcessesAsync()).OrderByDescending(p => p.Created);
         StateHasChanged();
     }
 

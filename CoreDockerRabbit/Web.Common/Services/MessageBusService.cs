@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,36 @@ namespace Web.Common.Services
             EnsureConnectionCreated();
         }
 
-        public void Send<T>(string exchangeName, T message)
+        public void Send<T>(string queueName, T message)
         {
             EnsureConnectionCreated();
 
             using(var channel = _connection.CreateModel())
             {
-                channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
-                channel.BasicPublish(exchangeName, "web.message", null, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message)));
+                channel.QueueDeclare(queueName, durable: true, autoDelete: false, exclusive: false);
+                channel.BasicPublish(string.Empty, queueName, null, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message)));
             }
+        }
+
+        public WebQueueChannel GetChannel<T>(string queueName, Action<T> action)
+        {
+            var channel = _connection.CreateModel();
+            channel.QueueDeclare(queueName, durable: true, autoDelete: false, exclusive: false);
+
+            var consumer = new EventingBasicConsumer(channel);
+            consumer.Received += (model, ea) =>
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                var receivedObject = JsonConvert.DeserializeObject<T>(message);
+
+                action(receivedObject);
+            };
+            channel.BasicConsume(queue: queueName,
+                                 autoAck: true,
+                                 consumer: consumer);
+
+            return new WebQueueChannel(channel);
         }
 
         private void EnsureConnectionFactoryCreated()
