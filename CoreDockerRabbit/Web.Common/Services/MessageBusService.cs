@@ -47,10 +47,19 @@ namespace Web.Common.Services
                 var message = Encoding.UTF8.GetString(body);
                 var receivedObject = JsonConvert.DeserializeObject<T>(message);
 
-                action(receivedObject);
+                try
+                {
+                    action(receivedObject);
+                    channel.BasicAck(ea.DeliveryTag, false);
+                }
+                catch (Exception ex)
+                {
+                    //TODO add logging
+                    channel.BasicNack(ea.DeliveryTag, false, true);
+                }
             };
             channel.BasicConsume(queue: queueName,
-                                 autoAck: true,
+                                 autoAck: false,
                                  consumer: consumer);
 
             return new WebQueueChannel(channel);

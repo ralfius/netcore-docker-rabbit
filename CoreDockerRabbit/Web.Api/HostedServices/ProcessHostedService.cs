@@ -40,17 +40,22 @@ namespace Web.Api.HostedServices
                             .Where(p => p.ProcessId == processModel.ProcessId)
                             .SingleOrDefault();
 
-                        if (process.Status == DAL.Entities.ProcessStatus.Queued)
+                        if (processModel?.Status == Common.Models.ProcessStatus.Queued
+                            && process?.Status == DAL.Entities.ProcessStatus.Queued)
                         {
                             process.Status = DAL.Entities.ProcessStatus.InProgress;
                             await dbContext.SaveChangesAsync();
 
+                            _messageBusService.Send(Constants.ProcessQueueName, _mapper.Map<Process, ProcessModel>(process));
+                        } 
+                        else if (processModel?.Status == Common.Models.ProcessStatus.InProgress
+                            && process?.Status == DAL.Entities.ProcessStatus.InProgress)
+                        {
                             // imitation of running task
                             await Task.Delay(10000);
+
                             process.Status = DAL.Entities.ProcessStatus.Completed;
                             await dbContext.SaveChangesAsync();
-
-                            _messageBusService.Send(Constants.ProcessQueueName, _mapper.Map<Process, ProcessModel>(process));
                         }
                     }
                 }
