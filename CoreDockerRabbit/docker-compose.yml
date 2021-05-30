@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+    web.db:
+        build: .\postgresql\
+        ports: 
+            - "5433:5432"
+    web.queue:
+        build: .\rabbitmq\
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+    web.api:
+        build:
+          context: ./
+          dockerfile: Web.Api/Dockerfile
+        ports: 
+            - "43002:43002"
+    web.ui:
+        build:
+          context: ./
+          dockerfile: Web.Ui/Dockerfile
+        ports:
+            - "43001:43001"
