@@ -11,10 +11,6 @@ namespace Web.DAL
     {
         public DbSet<Process> Processes { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // TODO move to config
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Database=webdb;Username=webuser;Password=WebP@ss!");
-        }
+        public WebDbContext(DbContextOptions options): base (options) { }
     }
 }

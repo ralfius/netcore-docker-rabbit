@@ -36,7 +36,7 @@ namespace Web.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web.Api", Version = "v1" });
             });
-            services.AddDbContext<WebDbContext>();
+            services.AddDbContext<WebDbContext>(o => o.UseNpgsql(Configuration[Web.Common.Constants.WebDbConnectionStringKey]));
             services.AddTransient<IProcessService, ProcessService>();
             services.AddSingleton<IMessageBusService, MessageBusService>();
             services.AddAutoMapper(typeof(Startup));
