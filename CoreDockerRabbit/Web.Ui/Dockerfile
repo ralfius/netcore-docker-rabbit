@@ -5,13 +5,14 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0.202 AS build
 WORKDIR /src
-COPY ["Web.Ui/Web.Ui.csproj", "Web.Ui/"]
+COPY ["Web.UI/Web.Ui.csproj", "Web.UI/"]
 COPY ["Web.Common/Web.Common.csproj", "Web.Common/"]
-RUN dotnet restore "Web.Ui/Web.Ui.csproj"
+
+RUN dotnet restore "Web.UI/Web.Ui.csproj"
 COPY . .
-WORKDIR "/src/Web.Ui"
+WORKDIR "/src/Web.UI"
 RUN dotnet build "Web.Ui.csproj" -c Release -o /app/build
 
 FROM build AS publish

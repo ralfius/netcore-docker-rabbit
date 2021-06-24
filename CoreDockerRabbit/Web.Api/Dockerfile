@@ -5,11 +5,12 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0.202 AS build
 WORKDIR /src
 COPY ["Web.Api/Web.Api.csproj", "Web.Api/"]
 COPY ["Web.DAL/Web.DAL.csproj", "Web.DAL/"]
 COPY ["Web.Common/Web.Common.csproj", "Web.Common/"]
+
 RUN dotnet restore "Web.Api/Web.Api.csproj"
 COPY . .
 WORKDIR "/src/Web.Api"
