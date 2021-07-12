@@ -11,7 +11,7 @@ services:
         ports:
             - "5672:5672"
             - "15672:15672"
-    web.api:
+    web.api: #add delay for creation or add retry as DB is not ready
         build:
           context: ./
           dockerfile: Web.Api/Dockerfile
