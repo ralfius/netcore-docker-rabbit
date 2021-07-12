@@ -1,11 +1,13 @@
 version: "3.9"
 services:
     web.db:
-        build: .\postgresql\
+        build: ./postgresql/
+        container_name: web.db
         ports: 
             - "5433:5432"
     web.queue:
-        build: .\rabbitmq\
+        build: ./rabbitmq/
+        container_name: web.queue
         ports:
             - "5672:5672"
             - "15672:15672"
@@ -13,11 +15,15 @@ services:
         build:
           context: ./
           dockerfile: Web.Api/Dockerfile
+        container_name: web.api
         ports: 
             - "43002:43002"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
     web.ui:
         build:
           context: ./
           dockerfile: Web.Ui/Dockerfile
+        container_name: web.ui
         ports:
             - "43001:43001"
