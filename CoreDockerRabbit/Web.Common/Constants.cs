@@ -13,5 +13,6 @@ namespace Web.Common
         public const string RabbitUserNameKey = "RabbitMQ:Connection:UserName";
         public const string RabbitPasswordKey = "RabbitMQ:Connection:Password";
         public const string WebDbConnectionStringKey = "DB:ConnectionString";
+        public const string WebApiBaseUrlKey = "WebApi:BaseUrl";
     }
 }

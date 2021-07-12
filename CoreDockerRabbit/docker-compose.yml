@@ -17,13 +17,11 @@ services:
           dockerfile: Web.Api/Dockerfile
         container_name: web.api
         ports: 
-            - "43002:43002"
-        environment:
-            - ASPNETCORE_ENVIRONMENT=Development
+            - "43002:80"
     web.ui:
         build:
           context: ./
           dockerfile: Web.Ui/Dockerfile
         container_name: web.ui
         ports:
-            - "43001:43001"
+            - "43001:80"
