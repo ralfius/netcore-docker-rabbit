@@ -5,19 +5,26 @@ services:
         container_name: web.db
         ports: 
             - "5433:5432"
+
     web.queue:
         build: ./rabbitmq/
         container_name: web.queue
         ports:
             - "5672:5672"
             - "15672:15672"
-    web.api: #add delay for creation or add retry as DB is not ready
+
+    web.api: 
         build:
           context: ./
           dockerfile: Web.Api/Dockerfile
         container_name: web.api
         ports: 
             - "43002:80"
+        depends_on:
+            - web.db
+            - web.queue
+        restart: on-failure #web.db is not available at startup when DbMigration is done
+
     web.ui:
         build:
           context: ./
@@ -25,3 +32,5 @@ services:
         container_name: web.ui
         ports:
             - "43001:80"
+        depends_on:
+            - web.api
