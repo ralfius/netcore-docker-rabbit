@@ -7,12 +7,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Web.Api.HostedServices;
 using Web.Api.Services;
+using Web.Common;
 using Web.Common.Services;
 using Web.DAL;
 
@@ -70,7 +73,12 @@ namespace Web.Api
             using (var scope = builder.ApplicationServices.CreateScope())
             using (var dbContext = scope.ServiceProvider.GetService<WebDbContext>())
             {
-                dbContext.Database.Migrate();
+                Policy
+                    .Handle<SocketException>()
+                    .WaitAndRetry(
+                        int.Parse(Configuration[Constants.WebDbConnectionRetryNumberKey]), 
+                        attempt => TimeSpan.FromSeconds(int.Parse(Configuration[Constants.WebDbConnectionRetryIntervalKey])))
+                    .Execute(() => dbContext.Database.Migrate());
             }
         }
     }

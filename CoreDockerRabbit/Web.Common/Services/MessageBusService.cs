@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using RabbitMQ.Client.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,7 +90,13 @@ namespace Web.Common.Services
             {
                 lock (_lock)
                 {
-                    _connection = _connection ?? _connectionFactory.CreateConnection();
+                    _connection = _connection ??
+                        Policy
+                            .Handle<BrokerUnreachableException>()
+                            .WaitAndRetry(
+                                int.Parse(_configuration[Constants.RabbitConnectionRetryNumberKey]),
+                                attempt => TimeSpan.FromSeconds(int.Parse(_configuration[Constants.RabbitConnectionRetryIntervalKey])))
+                            .Execute(() => _connectionFactory.CreateConnection());
                 }
             }
         }
