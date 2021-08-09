@@ -1,3 +1,3 @@
-FROM rabbitmq:3-management
+FROM rabbitmq:3.8-management
 ENV RABBITMQ_DEFAULT_USER webuser
 ENV RABBITMQ_DEFAULT_PASS WebP@ss!
