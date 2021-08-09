@@ -94,8 +94,8 @@ namespace Web.Common.Services
                         Policy
                             .Handle<BrokerUnreachableException>()
                             .WaitAndRetry(
-                                int.Parse(_configuration[Constants.RabbitConnectionRetryNumberKey]),
-                                attempt => TimeSpan.FromSeconds(int.Parse(_configuration[Constants.RabbitConnectionRetryIntervalKey])))
+                                int.Parse(_configuration[Constants.RetryNumberKey]),
+                                attempt => TimeSpan.FromSeconds(int.Parse(_configuration[Constants.RetryIntervalKey])))
                             .Execute(() => _connectionFactory.CreateConnection());
                 }
             }

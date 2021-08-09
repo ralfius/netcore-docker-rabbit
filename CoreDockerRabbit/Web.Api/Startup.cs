@@ -76,8 +76,8 @@ namespace Web.Api
                 Policy
                     .Handle<SocketException>()
                     .WaitAndRetry(
-                        int.Parse(Configuration[Constants.WebDbConnectionRetryNumberKey]), 
-                        attempt => TimeSpan.FromSeconds(int.Parse(Configuration[Constants.WebDbConnectionRetryIntervalKey])))
+                        int.Parse(Configuration[Constants.RetryNumberKey]), 
+                        attempt => TimeSpan.FromSeconds(int.Parse(Configuration[Constants.RetryIntervalKey])))
                     .Execute(() => dbContext.Database.Migrate());
             }
         }
