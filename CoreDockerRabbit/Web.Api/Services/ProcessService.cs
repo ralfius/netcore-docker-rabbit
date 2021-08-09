@@ -10,14 +10,14 @@ using Web.DAL.Entities;
 
 namespace Web.Api.Services
 {
-    class ProcessService : IProcessService
+    public class ProcessService : IProcessService
     {
-        private readonly WebDbContext _context;
+        private readonly IWebDbContext _context;
         private readonly IMapper _mapper;
         private readonly IMessageBusService _messageBusService;
 
 
-        public ProcessService(WebDbContext context, IMapper mapper, IMessageBusService messageBusService)
+        public ProcessService(IWebDbContext context, IMapper mapper, IMessageBusService messageBusService)
         {
             _context = context;
             _mapper = mapper;

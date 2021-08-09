@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.DAL", "Web.DAL\Web.DAL.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Common", "Web.Common\Web.Common.csproj", "{33099D02-E7A4-47ED-B23A-6B45FF30D350}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Api.Tests", "Web.Api.Tests\Web.Api.Tests.csproj", "{4CE1FD4F-0278-404B-9B09-F8BBDB0F35C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{33099D02-E7A4-47ED-B23A-6B45FF30D350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33099D02-E7A4-47ED-B23A-6B45FF30D350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33099D02-E7A4-47ED-B23A-6B45FF30D350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CE1FD4F-0278-404B-9B09-F8BBDB0F35C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE1FD4F-0278-404B-9B09-F8BBDB0F35C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CE1FD4F-0278-404B-9B09-F8BBDB0F35C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CE1FD4F-0278-404B-9B09-F8BBDB0F35C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

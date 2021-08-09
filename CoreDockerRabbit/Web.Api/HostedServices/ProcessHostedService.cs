@@ -34,7 +34,7 @@ namespace Web.Api.HostedServices
             {
                 using (var scope = _serviceProvider.CreateScope())
                 {
-                    using (var dbContext = scope.ServiceProvider.GetRequiredService<WebDbContext>())
+                    using (var dbContext = scope.ServiceProvider.GetRequiredService<IWebDbContext>())
                     {
                         var process = dbContext.Processes
                             .Where(p => p.ProcessId == processModel.ProcessId)

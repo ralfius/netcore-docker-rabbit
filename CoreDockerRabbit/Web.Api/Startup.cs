@@ -33,13 +33,13 @@ namespace Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web.Api", Version = "v1" });
             });
             services.AddDbContext<WebDbContext>(o => o.UseNpgsql(Configuration[Web.Common.Constants.WebDbConnectionStringKey]));
+            services.AddScoped<IWebDbContext, WebDbContext>();
             services.AddTransient<IProcessService, ProcessService>();
             services.AddSingleton<IMessageBusService, MessageBusService>();
             services.AddAutoMapper(typeof(Startup));
@@ -71,7 +71,7 @@ namespace Web.Api
         public void MigrateDb(IApplicationBuilder builder)
         {
             using (var scope = builder.ApplicationServices.CreateScope())
-            using (var dbContext = scope.ServiceProvider.GetService<WebDbContext>())
+            using (var dbContext = scope.ServiceProvider.GetService<IWebDbContext>())
             {
                 Policy
                     .Handle<SocketException>()
