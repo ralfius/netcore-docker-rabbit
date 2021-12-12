@@ -1,11 +1,14 @@
-# netcore-kuber-rabbit
-Sandbox for .NET Core + RabbitMQ application in k8s
+# kubernetes-based deployment
+See [docker deployment](../docker) for docker-compose version
 
 **To develop locally with minikube - suggest https://minikube.sigs.k8s.io/docs/start/**
 
-## Steps to run:
-1. `minikube start`
-2. in new terminal (keep terminal running)
+## Steps to run with minikube:
+1. run minikube
+```
+minikube start
+```
+3. in new terminal (keep terminal running)
 ```
 minikube dashboard
 ```
@@ -43,17 +46,29 @@ navigate http://localhost:#EXTERNAL_PORT
 
 ## Useful commands:
 1. to see endpoints
+```
 kubectl get services
+```
 2. to see the pods (containers)
+```
 kubectl get pods
+```
 3. to see logs of specific pod 
+```
 kubectl logs $POD_NAME
+```
 4. to execute comman within pod
+```
 kubectl exec $POD_NAME
+```
 5. to expose deployment (set of pods)
+```
 kubectl expose deployment $DEPLOYMENT_NAME --type=LoadBalancer --name=$SERVICE_NAME
+```
 6. get details about service
+```
 kubectl describe services/$SERVICE_NAME
+```
 7. troubleshoot connectivity between services and pods
 https://medium.com/kubernetes-tutorials/kubernetes-dns-for-services-and-pods-664804211501
 8. use minikube with local docker images: https://minikube.sigs.k8s.io/docs/handbook/pushing/#1-pushing-directly-to-the-in-cluster-docker-daemon-docker-env
