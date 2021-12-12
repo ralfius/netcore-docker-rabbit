@@ -1,8 +1,5 @@
 # netcore-docker-rabbit
-Sandbox application for .net core microservices in docker with rabbit queue
+Sandbox application for .net core microservices with rabbit queue under docker-compose or kubernetes 
 
-To start application:
-```
-cd ~\netcore-docker-rabbit\CoreDockerRabbit
-docker compose up --build --force-recreate -d
-```
+For docker-compose deployment navigate to ~\CoreDockerRabbit\docker and follow README
+For kubernetes-based deployment navigate to ~\CoreDockerRabbit\k8s and follow README

@@ -12,8 +12,8 @@ namespace Web.Common
         public const string RabbitHostnameKey = "RabbitMQ:Connection:Hostname";
         public const string RabbitUserNameKey = "RabbitMQ:Connection:UserName";
         public const string RabbitPasswordKey = "RabbitMQ:Connection:Password";
-        public const string RetryNumberKey = "RabbitMQ:Connection:Retry:Number";
-        public const string RetryIntervalKey = "RabbitMQ:Connection:Retry:Interval";
+        public const string RetryNumberKey = "Retry:Number";
+        public const string RetryIntervalKey = "Retry:Interval";
         public const string WebDbConnectionStringKey = "DB:ConnectionString";
         public const string WebApiBaseUrlKey = "WebApi:BaseUrl";
     }

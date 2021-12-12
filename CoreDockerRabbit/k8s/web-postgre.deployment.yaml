@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-postgre
+spec:
+  selector:
+    matchLabels:
+      app: web-postgre
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-postgre
+    spec:
+      containers:
+      - name: web-postgre
+        image: web.postgre:latest
+        imagePullPolicy: IfNotPresent #required to pull image from local docker registry, see https://minikube.sigs.k8s.io/docs/handbook/pushing/#1-pushing-directly-to-the-in-cluster-docker-daemon-docker-env
+        ports:
+        - containerPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-postgre
+spec:
+  selector:
+    app: web-postgre
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
