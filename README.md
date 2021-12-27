@@ -9,5 +9,5 @@ Sandbox application for .NET Core microservices with RabbitMQ under docker-compo
 4. RabbitMQ
 
 ## Deployments
-1. [docker-compose version](CoreDockerRabbit/docker)
-2. [kubernetes version](CoreDockerRabbit/k8s)
+1. [docker-compose version](CoreDockerRabbit/deploy/docker)
+2. [kubernetes version](CoreDockerRabbit/deploy/k8s)
